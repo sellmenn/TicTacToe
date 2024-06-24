@@ -24,14 +24,15 @@ def main():
         if board.turn == user:
             # Prompt user for coordinate
             move = input(f"Player {user}'s turn:\nMake move (height, length): ")
+            # Error-handling
             while not re.fullmatch(pattern, move):
                 move = input("Make move (height, length): ")
-            height, length = int(move[0]), int(move[2])
-            board.make_move((height, length))
-        # AI's turn
+            board.make_move((int(move[0]), int(move[2])))
+        # If AI's turn
         else:
             print(f"AI making move as {agent}...")
             board.make_move(best_move(board))
+    # Game ended.
     print(f"Game ended.\n\n{board}")
     if board.end_game() == 2:
         print("Game drawn.\n")
@@ -43,16 +44,14 @@ def main():
         print(f"{winner} won game.\n")
 
 
-# Function to get utility value of board. Return 0 if the game is drawn, 1 if O wins, -1 if X wins. Return False if game has not ended
+# Function to get utility value of board. Return 0 if the game is drawn, 1 if O wins, -1 if X wins.
 def get_utility(board):
     winner = board.end_game()
     if winner == "O":
         return 1
     elif winner == "X":
         return -1
-    elif winner == 2:
-        return 0
-    return False
+    return 0
 
 
 # Function to return best possible move given a board
@@ -72,6 +71,7 @@ def best_move(board):
         for move in moves:
             brd = deepcopy(board)
             brd.make_move(move)
+
             value = maxvalue(brd)
             if value < utility:
                 utility, best = value, move
@@ -87,8 +87,7 @@ def maxvalue(board):
         brd = deepcopy(board)
         brd.make_move(move)
         value = minvalue(brd)
-        if value > utility:
-            utility = value
+        utility = max(value, utility)
     return utility
 
 
@@ -101,8 +100,7 @@ def minvalue(board):
         brd = deepcopy(board)
         brd.make_move(move)
         value = maxvalue(brd)
-        if value < utility:
-            utility = value
+        utility = min(value, utility)
     return utility
     
 
