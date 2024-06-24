@@ -12,7 +12,7 @@ The goal of this project was to write an AI program that could consistently (if 
 
 # PROJECT DESCRIPTION
 
-This project is based on the Minimax algorithm. In this algorithm, the 'maximizer' tries to get the highest score possible while the 'minimizer' tries to do the opposite and get the lowest score possible. Every state has a value associated with it. In a given state if the maximizer has upper hand then, the score of the board will tend to be some positive value. If the minimizer has the upper hand in that board state then it will tend to be some negative value. 
+This project is based on the Minimax algorithm. In this algorithm, the 'maximizer' tries to get the highest score possible while the 'minimizer' tries to do the opposite and get the lowest score possible. Every state has a value associated with it. In a given state if the maximizer has the upper hand then the score of the board will tend to be some positive value. If the minimizer has the upper hand in that board state then it will tend to be some negative value. 
 
 In this project, the maximiser is the player who plays O, and the minimiser is the player who plays X. For a board state where O is the winner, the associated value is 1. For a board state where X is the winner, the associated value is -1. For a drawn board state, the associated value is 0. Thus, the player playing O is trying to 'maximise' the value of the board's state, and the player playing X is trying to 'minimise' the value of the board's state.
 
