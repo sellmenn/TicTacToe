@@ -1,12 +1,18 @@
 from game import *
 import re
 from copy import deepcopy
-
+from pyfiglet import Figlet
+from time import sleep
 
 def main():
+    # Author's credits
+    print("\nA personal project by Ariq Koh -- Github ID: sellmenn\n")
+    f = Figlet(font="slant")
+    print(f.renderText("Tic-tac-toe AI"))
+    sleep(3)
     # Create board object
     board = Board()
-    # Pattern for matching regex
+    # Pattern for matching regex to coordinate entered
     pattern = f"([0-{board.height - 1}],[0-{board.length - 1}])"
     # Select player "O" or "X"
     user = None
