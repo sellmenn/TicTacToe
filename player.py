@@ -1,53 +1,6 @@
 from game import *
-import re
 from copy import deepcopy
-from pyfiglet import Figlet
 from time import sleep
-
-def main():
-    # Author's credits
-    print("\nA personal project by Ariq Koh -- Github ID: sellmenn\n")
-    f = Figlet(font="slant")
-    print(f.renderText("Tic-tac-toe AI"))
-    sleep(3)
-    # Create board object
-    board = Board()
-    # Pattern for matching regex to coordinate entered
-    pattern = f"([0-{board.height - 1}],[0-{board.length - 1}])"
-    # Select player "O" or "X"
-    user = None
-    while user not in board.players:
-        user = input("Play as 'O' or 'X'?: ")
-    # Assign AI to player
-    for player in board.players:
-        if user != player:
-            agent = player
-    print("Player 'O' begins first.\n")
-    # While game has not ended
-    while not board.end_game():
-        print(board)
-        # If player's turn
-        if board.turn == user:
-            # Prompt user for coordinate
-            move = input(f"Player {user}'s turn:\nMake move (height, length): ")
-            # Error-handling
-            while not re.fullmatch(pattern, move):
-                move = input("Make move (height, length): ")
-            board.make_move((int(move[0]), int(move[2])))
-        # If AI's turn
-        else:
-            print(f"AI making move as {agent}...")
-            board.make_move(best_move(board))
-    # Game ended.
-    print(f"Game ended.\n\n{board}")
-    if board.end_game() == 2:
-        print("Game drawn.\n")
-    else:
-        if board.end_game() == agent:
-            winner = "AI"
-        else:
-            winner = "User"
-        print(f"{winner} won game.\n")
 
 
 # Function to get utility value of board. Return 0 if the game is drawn, 1 if O wins, -1 if X wins.
@@ -108,7 +61,3 @@ def minvalue(board):
         value = maxvalue(brd)
         utility = min(value, utility)
     return utility
-    
-
-if __name__ == "__main__":
-    main()

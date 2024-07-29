@@ -15,7 +15,7 @@ class Board:
         return return_str
 
     def get_map(self, height, length):
-        map = []
+        map = list()
         for i in range(height):
             map.append(list())
             for j in range(length):
