@@ -9,30 +9,20 @@ def runner():
     screen = pygame.display.set_mode((1280, 720))
     pygame.display.set_caption("Tic-Tac-Toe")
     clock = pygame.time.Clock()
-
     font = pygame.font.Font('freesansbold.ttf', 25)
     option_o = font.render('Play as O', True, "white")
     option_x = font.render('Play as X', True, "white")
-    retry = font.render('Retry', True, "white")
-    quit = font.render('Quit', True, "white")
-
     o_rect = option_o.get_rect(center=(420, 720/2))
     x_rect = option_x.get_rect(center=(860, 720/2))
-    retry_rect = retry.get_rect(center=(420, 720/2))
-    quit_rect = quit.get_rect(center=(860, 720/2))
-
     running = True
 
     while running:
         turn = None
-        player = None
-
-        # Prompt for O or X
+        player = None 
         while turn is None:
             screen.fill("black")
             screen.blit(option_o, o_rect)
             screen.blit(option_x, x_rect)
-
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -45,16 +35,12 @@ def runner():
                     elif x_rect.collidepoint(x, y):
                         turn = "X"
                         player = "X"
-
             pygame.display.flip()
             clock.tick(30)
-
         board = Board()
         o_list, x_list = [], []
-
         while not board.end_game() and running:
             screen.fill("black")
-
             if turn != player:
                 ai_move = best_move(board)
                 board.make_move(ai_move)
@@ -80,14 +66,12 @@ def runner():
                                 else:
                                     x_list.append(center_pos)
                                     turn = "O"
-                                board.make_move(coordinate)
-                                
+                                board.make_move(coordinate)          
             draw_grid(screen)
             draw_o(screen, o_list)
             draw_x(screen, x_list)
             pygame.display.flip()
             clock.tick(30)
-
         # Show winner
         utility = get_utility(board)
         if utility == 1:
@@ -96,25 +80,15 @@ def runner():
             winner = "X"
         else:
             winner = "Draw"
-
         while running:
             screen.fill("black")
             text = font.render(f'Winner: {winner}', True, "white")
             text_rect = text.get_rect(center=(1280/2, 720/2))
             screen.blit(text, text_rect)
-
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     return
-                elif event.type == pygame.MOUSEBUTTONDOWN:
-                    x, y = pygame.mouse.get_pos()
-                    if retry_rect.collidepoint(x, y):
-                        break
-                    elif quit_rect.collidepoint(x, y):
-                        pygame.quit()
-                        return
-
             pygame.display.flip()
             clock.tick(30)
 
