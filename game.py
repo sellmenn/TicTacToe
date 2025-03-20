@@ -15,7 +15,7 @@ class Board:
         return return_str
 
     def get_map(self, height, length):
-        map = list()
+        map = []
         for i in range(height):
             map.append(list())
             for j in range(length):
@@ -66,5 +66,10 @@ class Board:
                 if not self.map[i][j]:
                     moves.append((i,j))
         return moves
+    
+    def clear(self):
+        for row in self.map:
+            for square in row:
+                square.clear()
      
 

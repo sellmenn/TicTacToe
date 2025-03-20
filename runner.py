@@ -1,8 +1,6 @@
 import pygame
 from game import *
-from copy import deepcopy
-from time import sleep
-from player import *
+from utility import *
 
 def runner():
     pygame.init()
@@ -18,7 +16,9 @@ def runner():
 
     while running:
         turn = None
-        player = None 
+        player = None
+        board = Board()
+        o_list, x_list = [], []
         while turn is None:
             screen.fill("black")
             screen.blit(option_o, o_rect)
@@ -33,13 +33,11 @@ def runner():
                         turn = "O"
                         player = turn
                     elif x_rect.collidepoint(x, y):
-                        turn = "X"
+                        turn = "O"
                         player = "X"
             pygame.display.flip()
             clock.tick(30)
-        board = Board()
-        o_list, x_list = [], []
-        while not board.end_game() and running:
+        while not board.end_game():
             screen.fill("black")
             if turn != player:
                 ai_move = best_move(board)
